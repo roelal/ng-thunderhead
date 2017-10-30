@@ -1,18 +1,20 @@
 {
-  "name": "ng-optimizely",
-  "main": "ng-optimizely.js",
-  "repository": "https://github.com/jacopotarantino/ng-optimizely.git",
-  "version": "2.0.0",
+  "name": "ng-thunderhead",
+  "main": "ng-thunderhead.js",
+  "repository": "https://github.com/roelal/ng-thunderhead.git",
+  "version": "0.0.1",
   "authors": [
-    "Jack Tarantino <jack@ofspades.com>"
+    "Jack Tarantino <jack@ofspades.com>",
+    "Roel Arents <roel.arents@luminis.eu>"
   ],
-  "description": "Angular module wrapper for Optimizely script",
+  "description": "Angular module wrapper for Thunderhead script",
   "keywords": [
     "angular",
-    "optimizely"
+    "thunderhead",
+    "one"
   ],
   "license": "MIT",
-  "homepage": "https://jack.ofspades.com",
+  "homepage": "https://github.com/roelal/ng-thunderhead",
   "ignore": [
     "node_modules",
     "bower_components",

@@ -1,34 +1,38 @@
-# Angular Optimizely Module
+# Angular Thunderhead Module
 
-A simple wrapper to pull in the Optimizely snippet with an AngularJS-based application. This module provides only a simple API to download the Optimizely snippet onto the page. All of your tests should be coded and targeted within the Optimizely interface. The `loadProject` method(usage described below) returns a promise so you can delay execution until after the snippet has loaded.
+A simple wrapper to pull in the Thunderhead ONE tag with an AngularJS-based application. This module provides only a simple API to download the Thunderhead ONE tag onto the page. All of your captures and interactions should be coded and targeted within the Thunderhead ONE interface. The `loadProject` method (usage described below) returns a promise so you can delay execution until after the snippet has loaded.
+
+This plugin is heavilty inpsired on, or actually just copied from, [jacopotarantino/ng-optimizely](https://jack.ofspades.com/angular-optimizely/index.html)
 
 ## Install
 
 ```bash
-$ bower install --save ng-optimizely
+$ bower install --save ng-thunderhead
 ```
 
-Add ng-optimizely.js to your index.html file:
+Add ng-thunderhead.js to your index.html file:
 
 ```html
-<!-- Angular optimizely -->
-<script src="bower_components/ng-optimizely/ng-optimizely.js"></script>
+<!-- Angular thunderhead -->
+<script src="bower_components/ng-thunderhead/ng-thunderhead.js"></script>
 ```
 
-Then require ng-optimizely in your application:
+Then require ng-thunderhead in your application:
 
 ```javascript
-var app = angular.module('app', ['ng-optimizely']);
+var app = angular.module('app', ['ng-thunderhead']);
 ```
 
 ## Config
+
+ng-thunderhead is a `provider`, not a `factory`. This means you'll need to configure it in a `.config()` block instead of within another module.
 
 In your app's run block execute the `setKey` method:
 
 ```javascript
 angular.module('app')
-.config(['optimizelyProvider', function(optimizelyProvider) {
-  optimizelyProvider.setKey('880950754');
+.config(['thunderheadProvider', function(thunderheadProvider) {
+  thunderheadProvider.setKey('ONE-XXXXXXXXXX-0000');
 }]);
 ```
 
@@ -38,12 +42,12 @@ In your app's run block execute the `loadProject` method:
 
 ```javascript
 angular.module('app')
-.run(['optimizely', function(optimizely) {
-  optimizely.loadProject();
+.run(['thunderhead', function(thunderhead) {
+  thunderhead.loadProject();
 }]);
 ```
 
-The ng-optimizely module will automatically run all relevant optimizely tests every time a new view comes up in the browser.
+The ng-thunderhead module will automatically instigate an interaction for the current route's path every time a new view comes up in the browser.
 
 A better way to load the library and avoid a FOUC is to use a router like [ui-router](https://github.com/angular-ui/ui-router) that allows you to defer pageload until after all of a given route's dependencies have been loaded. The `loadProject` method returns a promise so you can use it with any give plugin or framework but ui-router is a really good choice for most projects.
 
@@ -52,21 +56,21 @@ app.config(function($stateProvider) {
   $stateProvider.state('app.dashboard', {
     // ... other stuff ...
     resolve: {
-      optimizely: function(optimizely) {
-        return optimizely.loadProject();
+      thunderhead: function(thunderhead) {
+        return thunderhead.loadProject();
       }
     }
   });
 });
 ```
 
-You can also customize on which event the optimizely code should trigger. The default is '$viewContentLoaded'.
+You can also customize on which event the thunderhead code should trigger. The default is '$viewContentLoaded'.
 
 ```javascript
 angular.module('app')
-.config(['optimizelyProvider', function(optimizelyProvider) {
-  optimizelyProvider.setKey('880950754');
-  optimizelyProvider.setActivationEventName('$stateChangeSuccess');
+.config(['thunderheadProvider', function(thunderheadProvider) {
+  thunderheadProvider.setKey('ONE-XXXXXXXXXX-0000');
+  thunderheadProvider.setActivationEventName('$stateChangeSuccess');
 }]);
 ```
 
@@ -74,18 +78,11 @@ To trigger the code as soon as possible instead of upon a certain event, set the
 
 ```javascript
 angular.module('app')
-.config(['optimizelyProvider', function(optimizelyProvider) {
-  optimizelyProvider.setKey('880950754');
-  optimizelyProvider.setActivationEventName(false);
+.config(['thunderheadProvider', function(thunderheadProvider) {
+  thunderheadProvider.setKey('ONE-XXXXXXXXXX-0000');
+  thunderheadProvider.setActivationEventName(false);
 }]);
 ```
-
-## Breaking changes in Version 2
-
-* ng-optimizely is now a `provider`, not a `factory`. This means you'll need to configure it in a `.config()` block instead of within another module.
-* `optimizelyProvider#setKey` - new method for setting your project key.
-* `optimizelyProvider#setActivationEventName` - new method for setting the activation event name if you want to override the default.
-* (not actually breaking) - started publishing to npm.
 
 ## Test
 
