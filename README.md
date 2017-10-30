@@ -6,6 +6,17 @@ This plugin is heavilty inpsired on, or actually just copied from, [jacopotarant
 
 ## Install
 
+[Customize your ONE tag](https://eu2.thunderhead.com/one/help/conversations/guidance/how-do-i/one_tag_customize_intro/)
+ to expose the ONE CustomerAPI as the global variable `window.ONESDK`:
+
+```javascript
+window.ONESDK = window.ONESDK || {};
+ONESDK.api = customerApi;
+ONESDK.defaults = defaults;
+```
+ 
+Install this bower component:
+
 ```bash
 $ bower install --save ng-thunderhead
 ```
