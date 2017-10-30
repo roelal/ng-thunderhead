@@ -51,13 +51,13 @@ angular.module('ng-thunderhead', ['ng']).provider('thunderhead', function () {
                     deferred.promise.then(function (oneSdk) {
                         if (!activationEventName) {
                             oneSdk.api.sendInteraction(oneSdk.defaults.interaction, oneSdk.defaults.properties).then(function (response) {
-                                oneSdk.api.processResponse(response);
+                                oneSdk.api.processResponse(response, undefined, Math.pow(2, 52));
                             });
                         } else {
                             $rootScope.$on(activationEventName, function () {
                                 $timeout(function () {
                                     oneSdk.api.sendInteraction(oneSdk.defaults.interaction, oneSdk.defaults.properties).then(function (response) {
-                                        oneSdk.api.processResponse(response);
+                                        oneSdk.api.processResponse(response, undefined, Math.pow(2, 52));
                                     });
                                 });
                             });
