@@ -85,16 +85,6 @@ angular.module('app')
 }]);
 ```
 
-To trigger the code as soon as possible instead of upon a certain event, set the activation event name to false:
-
-```javascript
-angular.module('app')
-.config(['thunderheadProvider', function(thunderheadProvider) {
-  thunderheadProvider.setKey('ONE-XXXXXXXXXX-0000');
-  thunderheadProvider.setActivationEventName(false);
-}]);
-```
-
 ## Test
 
 TODO...
