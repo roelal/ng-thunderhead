@@ -4323,13 +4323,13 @@
             }
 
             return function (f) {
-                function g(a, b, e) {
-                    var f = urlUtils.buildRequestUri(b, urlUtils.objectToQueryString(e));
+                function sendInteraction(customer, interactionPath, properties) {
+                    var f = urlUtils.buildRequestUri(interactionPath, urlUtils.objectToQueryString(properties));
                     return d({
                         url: k.host + m,
                         data: {
                             pv: k.pv,
-                            tid: a.tid,
+                            tid: customer.tid,
                             flash: !0,
                             uri: f
                         }
@@ -4388,7 +4388,7 @@
                     o = l + "__req.gif",
                     p = m + "error";
                 return logLevel.debug("ONE - Using JSONP transport"), {
-                    sendInteraction: g,
+                    sendInteraction: sendInteraction,
                     sendResponseCode: h,
                     sendProperties: i,
                     sendErrorEvent: j,
