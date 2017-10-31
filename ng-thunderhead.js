@@ -72,8 +72,8 @@ angular.module('ng-thunderhead', ['ng']).provider('thunderhead', function () {
                 // Bind the instigation of a ONE 'interaction' to the configured Angular event
                 deferred.promise.then(function (oneSdk) {
                     $rootScope.$on(activationEventName, function () {
-                        var interactionArgs = activationEventArgsToInteractionArgs.apply(oneSdk, arguments);
                         $timeout(function () {
+                            var interactionArgs = activationEventArgsToInteractionArgs.apply(oneSdk, arguments);
                             oneSdk.api.sendInteraction(interactionArgs.interactionPath, interactionArgs.properties).then(function (response) {
                                 oneSdk.api.processResponse(response, undefined, Math.pow(2, 52));
                             });
@@ -88,6 +88,17 @@ angular.module('ng-thunderhead', ['ng']).provider('thunderhead', function () {
         return oneSdk;
     }
 
+    function getCurrentPath() {
+        var ngRouteHashIdx;
+        if (ngRouteHashIdx = window.location.href.indexOf('/#!')) {
+            return window.location.href.substring(ngRouteHashIdx+3);
+        }
+        if (window.location.pathname) {
+            return window.location.pathname;
+        }
+        return '/';
+    }
+
     function activationEventArgsToInteractionArgs() {
         var oneSdk = this;
 
@@ -96,23 +107,10 @@ angular.module('ng-thunderhead', ['ng']).provider('thunderhead', function () {
             return customActivationEventArgsToInteractionArgs.apply(oneSdk, arguments);
         }
 
-        // If the set activationEvent is '$stateChangeSuccess', use stateChangeSuccessEventArgsToInteractionArgs
-        if (activationEventName === '$stateChangeSuccess') {
-            return stateChangeSuccessEventArgsToInteractionArgs.apply(oneSdk, arguments);
-        }
-
         // The fallback is to use the current browser location and OneSdk defaults
         return {
-            interactionPath: $window.location.pathname || '/',
+            interactionPath: getCurrentPath(),
             properties: oneSdk.defaults.properties,
         };
-    }
-
-    function stateChangeSuccessEventArgsToInteractionArgs (event, toState, toParams, fromState, fromParams) {
-        var oneSdk = this;
-        return {
-            interactionPath: toState.url,
-            properties: oneSdk.defaults,
-        }
     }
 });
