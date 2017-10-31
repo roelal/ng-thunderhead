@@ -59,7 +59,7 @@ angular.module('app')
 }]);
 ```
 
-The ng-thunderhead module will automatically instigate an _interaction_ for the destination location upon a succesful state change. (Unless you change the activation event.) If the destination route is e.g. `/#!/foo/bar`, the _interactionPath_ will be `/foo/bar`.
+The ng-thunderhead module will automatically instigate an _interaction_ for the destination location upon a _succesful state change_. (Unless you choose a different activation event.) If the destination route is e.g. `http://myhost/myapp/#!/foo/bar`, the _interactionPath_ will be `/#!/foo/bar`. The _shebang_ is kept to indicate a soft page load.
 
 A better way to load the library and avoid a FOUC is to use a router like [ui-router](https://github.com/angular-ui/ui-router) that allows you to defer pageload until after all of a given route's dependencies have been loaded. The `loadProject` method returns a promise so you can use it with any give plugin or framework but ui-router is a really good choice for most projects.
 

@@ -89,6 +89,7 @@ angular.module('ng-thunderhead', ['ng']).provider('thunderhead', function () {
                         var interactionArgs = activationEventArgsToInteractionArgs.apply(oneSdk, arguments);
                         oneSdk.api.sendInteraction(interactionArgs.interactionPath, interactionArgs.properties).then(function (response) {
                             // Use a maximum timeout. Default timeout is 1050 and would be long overdue when dynamically updating the DOM.
+                            // TODO explicitTimeout = now() - oneSdk.domReadyTime + oneSdk.settings.timeout
                             var timeout = Math.pow(2, 52);
                             oneSdk.api.processResponse(response, undefined, timeout);
                         });
@@ -106,16 +107,16 @@ angular.module('ng-thunderhead', ['ng']).provider('thunderhead', function () {
      * Determines the current path. E.g. to use as interactionPath.
      *
      * E.g.
-     * https://host.com/baz/#!/foo/bar  -->  /foo/bar
-     * https://host.com/baz  -->  /baz
-     * https://host.com/baz/#!/  -->  /
+     * https://host.com/baz/#!/foo/bar  -->  /#!/foo/bar
+     * https://host.com/baz             -->  /baz
+     * https://host.com/baz/#!/         -->  /#!/
      *
      * @return {String}
      */
     function getCurrentPath() {
         var ngRouteHashIdx;
         if (ngRouteHashIdx = window.location.href.indexOf('/#!')) {
-            return window.location.href.substring(ngRouteHashIdx+3);
+            return window.location.href.substring(ngRouteHashIdx);
         }
         if (window.location.pathname) {
             return window.location.pathname;
