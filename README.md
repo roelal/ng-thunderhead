@@ -15,10 +15,10 @@ ONESDK.api = customerApi;
 ONESDK.defaults = defaults;
 ```
  
-Install this npm package:
+Install this bower component:
 
 ```bash
-$ npm install --save ng-thunderhead
+$ bower install --save ng-thunderhead
 ```
 
 Add ng-thunderhead.js to your index.html file:
