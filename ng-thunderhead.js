@@ -104,24 +104,17 @@ angular.module('ng-thunderhead', ['ng']).provider('thunderhead', function () {
     }
 
     /**
-     * Determines the current path. E.g. to use as interactionPath.
+     * Determines the current InteractionPath.
      *
-     * E.g.
-     * https://host.com/baz/#!/foo/bar  -->  /#!/foo/bar
-     * https://host.com/baz             -->  /baz
-     * https://host.com/baz/#!/         -->  /#!/
+     * It's just the URL without scheme and host (which would be the TouchPoint). E.g.:
+     * - https://host.com/baz/#!/foo/bar  -->  /baz/#!/foo/bar
+     * - https://host.com/baz             -->  /baz
+     * - https://host.com/baz/#!/         -->  /baz/#!/
      *
      * @return {String}
      */
-    function getCurrentPath() {
-        var ngRouteHashIdx;
-        if (ngRouteHashIdx = window.location.href.indexOf('/#!')) {
-            return window.location.href.substring(ngRouteHashIdx);
-        }
-        if (window.location.pathname) {
-            return window.location.pathname;
-        }
-        return '/';
+    function getCurrentInteractionPath() {
+        return (window.location.pathname + window.location.search + window.location.hash) || '/';
     }
 
     /**
@@ -137,7 +130,7 @@ angular.module('ng-thunderhead', ['ng']).provider('thunderhead', function () {
 
         // The fallback is to use the current browser location and OneSdk defaults
         return {
-            interactionPath: getCurrentPath(),
+            interactionPath: getCurrentInteractionPath(),
             properties: oneSdk.defaults.properties,
         };
     }
