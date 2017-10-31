@@ -2,7 +2,7 @@
 
 A simple wrapper to pull in the Thunderhead ONE tag with an AngularJS-based application. This module provides only a simple API to download the Thunderhead ONE tag onto the page. All of your captures and interactions should be coded and targeted within the Thunderhead ONE interface. The `loadProject` method (usage described below) returns a promise so you can delay execution until after the snippet has loaded.
 
-This plugin is heavilty inpsired on, or actually just copied from, [jacopotarantino/ng-optimizely](https://jack.ofspades.com/angular-optimizely/index.html)
+This plugin is heavily inpsired on, or actually just copied from, [jacopotarantino/ng-optimizely](https://jack.ofspades.com/angular-optimizely/index.html)
 
 ## Install
 
@@ -58,7 +58,7 @@ angular.module('app')
 }]);
 ```
 
-The ng-thunderhead module will automatically instigate an interaction for the current route's path every time a new view comes up in the browser.
+The ng-thunderhead module will automatically instigate an _interaction_ for the destination location upon a succesful state change. (Unless you change the activation event.) If the destination route is e.g. `/#!/foo/bar`, the _interactionPath_ will be `/foo/bar`.
 
 A better way to load the library and avoid a FOUC is to use a router like [ui-router](https://github.com/angular-ui/ui-router) that allows you to defer pageload until after all of a given route's dependencies have been loaded. The `loadProject` method returns a promise so you can use it with any give plugin or framework but ui-router is a really good choice for most projects.
 
@@ -75,13 +75,13 @@ app.config(function($stateProvider) {
 });
 ```
 
-You can also customize on which event the thunderhead code should trigger. The default is '$viewContentLoaded'.
+You can also customize on which event the thunderhead code should trigger. The default is '$stateChangeSuccess'.
 
 ```javascript
 angular.module('app')
 .config(['thunderheadProvider', function(thunderheadProvider) {
   thunderheadProvider.setKey('ONE-XXXXXXXXXX-0000');
-  thunderheadProvider.setActivationEventName('$stateChangeSuccess');
+  thunderheadProvider.setActivationEventName('$viewContentLoaded');
 }]);
 ```
 
