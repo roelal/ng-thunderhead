@@ -1,6 +1,6 @@
 {
   "name": "ng-thunderhead",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Angular module wrapper for Thunderhead script",
   "main": "ng-thunderhead.js",
   "repository": {
