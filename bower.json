@@ -2,7 +2,7 @@
   "name": "ng-thunderhead",
   "main": "ng-thunderhead.js",
   "repository": "https://github.com/roelal/ng-thunderhead.git",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "authors": [
     "Jack Tarantino <jack@ofspades.com>",
     "Roel Arents <roel.arents@luminis.eu>"
