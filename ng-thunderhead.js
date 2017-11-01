@@ -47,17 +47,16 @@ angular.module('ng-thunderhead', ['ng']).provider('thunderhead', function () {
 
     this.$get = ['$rootScope', '$window', '$timeout', '$q', provider];
     function provider($rootScope, $window, $timeout, $q) {
-        // Attach 'loadProject' as a method to the ONE SDK
-        var oneSdk = $window[oneSdkGlobalVarName] = $window[oneSdkGlobalVarName] || {};
-        oneSdk.loadProject = function () {
-            var deferredOneSdk = $q.defer();
+        var service = {};
+        service.loadProject = function () {
+            var oneSdkDeferred = $q.defer();
 
-            if (document.getElementById('thunderhead-js')) {
-                deferredOneSdk.reject(new Error({message: 'Thunderhead already activated'}));
-                return deferredOneSdk.promise;
+            if (document.getElementById('thxTag')) {
+                oneSdkDeferred.reject(new Error('Thunderhead already activated'));
+                return oneSdkDeferred.promise;
             } else if (key == void 0) {
-                deferredOneSdk.reject(new Error({message: 'Key not provided'}));
-                return deferredOneSdk.promise;
+                oneSdkDeferred.reject(new Error('Key not provided'));
+                return oneSdkDeferred.promise;
             }
 
             // Dynamically load the ONE tag script
@@ -69,38 +68,45 @@ angular.module('ng-thunderhead', ['ng']).provider('thunderhead', function () {
             script.onload = script.onreadystatechange = function () {
                 var oneSdk = $window[oneSdkGlobalVarName];
                 if (!oneSdk) {
-                    deferredOneSdk.reject(new Error({message: 'ONE SDK not found in window.' + oneSdkGlobalVarName}));
+                    oneSdkDeferred.reject(new Error('ONE SDK not found in window.' + oneSdkGlobalVarName));
                 } else if (!angular.isObject(oneSdk.api) || !angular.isObject(oneSdk.defaults)) {
-                    deferredOneSdk.reject(new Error({message: 'Invalid ONE SDK structure. Expected {api: ..., defaults: ...}'}));
+                    oneSdkDeferred.reject(new Error('Invalid ONE SDK structure. Expected {api: ..., defaults: ...}'));
                 } else {
-                    deferredOneSdk.resolve(oneSdk);
+                    oneSdkDeferred.resolve(oneSdk);
                 }
             };
             script.onerror = script.onreadystatechange = function (error) {
-                deferredOneSdk.reject(error);
+                oneSdkDeferred.reject(error);
             };
             var first = document.getElementsByTagName('script')[0];
             first.parentNode.insertBefore(script, first);
 
             // Listen to the configured Angular event to instigate a ONE 'interaction'
-            deferredOneSdk.promise.then(function (oneSdk) {
+            oneSdkDeferred.promise.then(function (oneSdk) {
                 $rootScope.$on(activationEventName, function () {
                     $timeout(function () {
                         var interactionArgs = activationEventArgsToInteractionArgs.apply(oneSdk, arguments);
                         oneSdk.api.sendInteraction(interactionArgs.interactionPath, interactionArgs.properties).then(function (response) {
                             // Use a maximum timeout. Default timeout is 1050 and would be long overdue when dynamically updating the DOM.
                             // TODO explicitTimeout = now() - oneSdk.domReadyTime + oneSdk.settings.timeout
-                            var timeout = Math.pow(2, 52);
-                            oneSdk.api.processResponse(response, undefined, timeout);
+                            var doRetry = undefined,
+                                timeout = Math.pow(2, 52);
+                            oneSdk.api.processResponse(response, doRetry, timeout);
                         });
                     });
                 });
+            }, function(e) {
+                if (Error.prototype.isPrototypeOf(e)) {
+                    throw e;
+                } else {
+                    console.log(e);
+                }
             });
 
-            return deferredOneSdk.promise;
+            return oneSdkDeferred.promise;
         };
 
-        return oneSdk;
+        return service;
     }
 
     /**
