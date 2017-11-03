@@ -19,7 +19,7 @@ angular.module('ng-thunderhead', ['ng']).provider('thunderhead', function () {
         oneSdkGlobalVarName = val;
     };
 
-    var activationEventName = '$stateChangeSuccess';
+    var activationEventName = '$viewContentLoaded';
     /**
      * @param {String} val The name of the AngularJS event to hook into
      */
