@@ -45,16 +45,24 @@ angular.module('ng-thunderhead', ['ng']).provider('thunderhead', function () {
         customActivationEventArgsToInteractionArgs = f;
     };
 
+    var oneSdkDeferred = undefined;
+
     this.$get = ['$rootScope', '$window', '$timeout', '$q', provider];
     function provider($rootScope, $window, $timeout, $q) {
         var service = {};
         service.loadProject = function () {
-            var oneSdkDeferred = $q.defer();
+
+            // Return an already made promise
+            if (oneSdkDeferred) {
+                return oneSdkDeferred.promise;
+            }
+
+            oneSdkDeferred = $q.defer();
 
             if (document.getElementById('thxTag')) {
                 oneSdkDeferred.reject(new Error('Thunderhead already activated'));
                 return oneSdkDeferred.promise;
-            } else if (key == void 0) {
+            } else if (key === undefined) {
                 oneSdkDeferred.reject(new Error('Key not provided'));
                 return oneSdkDeferred.promise;
             }
@@ -66,13 +74,11 @@ angular.module('ng-thunderhead', ['ng']).provider('thunderhead', function () {
             // script.async = true; // default true
             script.src = 'https://eu2.thunderhead.com/one/rt/js/one-tag.js?siteKey=' + key;
             script.onload = script.onreadystatechange = function () {
-                var oneSdk = $window[oneSdkGlobalVarName];
-                if (!oneSdk) {
-                    oneSdkDeferred.reject(new Error('ONE SDK not found in window.' + oneSdkGlobalVarName));
-                } else if (!angular.isObject(oneSdk.api) || !angular.isObject(oneSdk.defaults)) {
-                    oneSdkDeferred.reject(new Error('Invalid ONE SDK structure. Expected {api: ..., defaults: ...}'));
-                } else {
+                try {
+                    var oneSdk = getGlobalOneSdk($window);
                     oneSdkDeferred.resolve(oneSdk);
+                } catch (e) {
+                    oneSdkDeferred.reject(e);
                 }
             };
             script.onerror = script.onreadystatechange = function (error) {
@@ -84,11 +90,11 @@ angular.module('ng-thunderhead', ['ng']).provider('thunderhead', function () {
             // Listen to the configured Angular event to instigate a ONE 'interaction'
             oneSdkDeferred.promise.then(function (oneSdk) {
                 $rootScope.$on(activationEventName, function () {
-                    $timeout(function () {
+                    $timeout(function () { // $timeout (with 0 seconds) to place this on the event queue just behind the DOM rendering
                         var interactionArgs = activationEventArgsToInteractionArgs.apply(oneSdk, arguments);
                         oneSdk.api.sendInteraction(interactionArgs.interactionPath, interactionArgs.properties).then(function (response) {
                             // Use a maximum timeout. Default timeout is 1050 and would be long overdue when dynamically updating the DOM.
-                            // TODO explicitTimeout = now() - oneSdk.domReadyTime + oneSdk.settings.timeout
+                            // Also, SDK's options' domReadyTime is overwritten by customerApi's processResponse() which probably assumes it is invoked only once.
                             var doRetry = undefined,
                                 timeout = Math.pow(2, 52);
                             oneSdk.api.processResponse(response, doRetry, timeout);
@@ -107,6 +113,18 @@ angular.module('ng-thunderhead', ['ng']).provider('thunderhead', function () {
         };
 
         return service;
+    }
+
+    function getGlobalOneSdk($window) {
+        var oneSdk = $window[oneSdkGlobalVarName];
+
+        if (!oneSdk) {
+            throw new Error('ONE SDK not found in window.' + oneSdkGlobalVarName);
+        } else if (!angular.isObject(oneSdk.api) || !angular.isObject(oneSdk.defaults)) {
+            throw new Error('Invalid ONE SDK structure. Expected {api: ..., defaults: ...}');
+        }
+
+        return oneSdk;
     }
 
     /**
