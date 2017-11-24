@@ -127,7 +127,7 @@
             if (b(o, c)) {
                 var d = o[c];
                 delete o[c],
-                    q[c] = !0,
+                    q[c] = true,
                     j.apply(a, d)
             }
             if (!b(n, c) && !b(q, c))
@@ -201,7 +201,7 @@
                             u[s] = m.require(c);
                         else if ("exports" === k)
                             u[s] = m.exports(c),
-                                t = !0;
+                                t = true;
                         else if ("module" === k)
                             j = u[s] = m.module(c);
                         else if (b(n, k) || b(o, k) || b(q, k))
@@ -209,7 +209,7 @@
                         else {
                             if (!r.p)
                                 throw new Error(c + " missing " + k);
-                            r.p.load(r.n, d(i, !0), f(k), {}),
+                            r.p.load(r.n, d(i, true), f(k), {}),
                                 u[s] = n[k]
                         }
                     p = h ? h.apply(n[c], u) : void 0,
@@ -249,13 +249,13 @@
                 b(n, a) || b(o, a) || (o[a] = [a, c, d])
             },
             define.amd = {
-                jQuery: !0
+                jQuery: true
             }
     }(),
         define("node_modules/almond/almond", function () {
         }),
         function (a, b) {
-            "object" == typeof module && "object" == typeof module.exports ? module.exports = a.document ? b(a, !0) : function (a) {
+            "object" == typeof module && "object" == typeof module.exports ? module.exports = a.document ? b(a, true) : function (a) {
                 if (!a.document)
                     throw new Error("jQuery requires a window with a document");
                 return b(a)
@@ -296,14 +296,14 @@
             function f(a) {
                 var b = ea[a] = {};
                 return Q.each(a.match(da) || [], function (a, c) {
-                    b[c] = !0
+                    b[c] = true
                 }),
                     b
             }
 
             function g() {
-                $.addEventListener ? ($.removeEventListener("DOMContentLoaded", h, !1),
-                    a.removeEventListener("load", h, !1)) : ($.detachEvent("onreadystatechange", h),
+                $.addEventListener ? ($.removeEventListener("DOMContentLoaded", h, false),
+                    a.removeEventListener("load", h, false)) : ($.detachEvent("onreadystatechange", h),
                     a.detachEvent("onload", h))
             }
 
@@ -332,8 +332,8 @@
                 var b;
                 for (b in a)
                     if (("data" !== b || !Q.isEmptyObject(a[b])) && "toJSON" !== b)
-                        return !1;
-                return !0
+                        return false;
+                return true
             }
 
             function k(a, b, c, d) {
@@ -374,17 +374,17 @@
                                 return
                         }
                         (c || (delete g[h].data,
-                            j(g[h]))) && (f ? Q.cleanData([a], !0) : O.deleteExpando || g != g.window ? delete g[h] : g[h] = null)
+                            j(g[h]))) && (f ? Q.cleanData([a], true) : O.deleteExpando || g != g.window ? delete g[h] : g[h] = null)
                     }
                 }
             }
 
             function m() {
-                return !0
+                return true
             }
 
             function n() {
-                return !1
+                return false
             }
 
             function o() {
@@ -485,11 +485,11 @@
             function z(a, b, c, d) {
                 function e(h) {
                     var i;
-                    return f[h] = !0,
+                    return f[h] = true,
                         Q.each(a[h] || [], function (a, h) {
                             var j = h(b, c, d);
                             return "string" != typeof j || g || f[j] ? g ? !(i = j) : void 0 : (b.dataTypes.unshift(j),
-                                e(j), !1)
+                                e(j), false)
                         }),
                         i
                 }
@@ -503,7 +503,7 @@
                 var c, d, e = Q.ajaxSettings.flatOptions || {};
                 for (d in b)
                     void 0 !== b[d] && ((e[d] ? a : c || (c = {}))[d] = b[d]);
-                return c && Q.extend(!0, a, c),
+                return c && Q.extend(true, a, c),
                     a
             }
 
@@ -552,11 +552,11 @@
                                 for (e in j)
                                     if (h = e.split(" "),
                                         h[1] === f && (g = j[i + " " + h[0]] || j["* " + h[0]])) {
-                                        g === !0 ? g = j[e] : j[e] !== !0 && (f = h[0],
+                                        g === true ? g = j[e] : j[e] !== true && (f = h[0],
                                                 k.unshift(h[1]));
                                         break
                                     }
-                            if (g !== !0)
+                            if (g !== true)
                                 if (g && a["throws"])
                                     b = g(b);
                                 else
@@ -671,7 +671,7 @@
                     var a, b, c, d, e, f, g = arguments[0] || {},
                         h = 1,
                         i = arguments.length,
-                        j = !1;
+                        j = false;
                     for ("boolean" == typeof g && (j = g,
                         g = arguments[h] || {},
                         h++),
@@ -682,14 +682,14 @@
                             for (d in e)
                                 a = g[d],
                                     c = e[d],
-                                g !== c && (j && c && (Q.isPlainObject(c) || (b = Q.isArray(c))) ? (b ? (b = !1,
+                                g !== c && (j && c && (Q.isPlainObject(c) || (b = Q.isArray(c))) ? (b ? (b = false,
                                     f = a && Q.isArray(a) ? a : []) : f = a && Q.isPlainObject(a) ? a : {},
                                     g[d] = Q.extend(j, f, c)) : void 0 !== c && (g[d] = c));
                     return g
                 },
                 Q.extend({
                     expando: "jQuery" + (P + Math.random()).replace(/\D/g, ""),
-                    isReady: !0,
+                    isReady: true,
                     error: function (a) {
                         throw new Error(a)
                     },
@@ -710,18 +710,18 @@
                     isEmptyObject: function (a) {
                         var b;
                         for (b in a)
-                            return !1;
-                        return !0
+                            return false;
+                        return true
                     },
                     isPlainObject: function (a) {
                         var b;
                         if (!a || "object" !== Q.type(a) || a.nodeType || Q.isWindow(a))
-                            return !1;
+                            return false;
                         try {
                             if (a.constructor && !N.call(a, "constructor") && !N.call(a.constructor.prototype, "isPrototypeOf"))
-                                return !1
+                                return false
                         } catch (c) {
-                            return !1
+                            return false
                         }
                         if (O.ownLast)
                             for (b in a)
@@ -751,21 +751,21 @@
                         if (d) {
                             if (h)
                                 for (; f < g && (e = b.apply(a[f], d),
-                                e !== !1); f++)
+                                e !== false); f++)
                                     ;
                             else
                                 for (f in a)
                                     if (e = b.apply(a[f], d),
-                                        e === !1)
+                                        e === false)
                                         break
                         } else if (h)
                             for (; f < g && (e = b.call(a[f], f, a[f]),
-                            e !== !1); f++)
+                            e !== false); f++)
                                 ;
                         else
                             for (f in a)
                                 if (e = b.call(a[f], f, a[f]),
-                                    e === !1)
+                                    e === false)
                                     break;
                         return a
                     },
@@ -906,7 +906,7 @@
                 }
 
                 function d(a) {
-                    return a[N] = !0,
+                    return a[N] = true,
                         a
                 }
 
@@ -915,7 +915,7 @@
                     try {
                         return !!a(b)
                     } catch (c) {
-                        return !1
+                        return false
                     } finally {
                         b.parentNode && b.parentNode.removeChild(b),
                             b = null
@@ -989,7 +989,7 @@
                         if (g) {
                             for (; b = b[d];)
                                 if ((1 === b.nodeType || e) && a(b, c, g))
-                                    return !0
+                                    return true
                         } else
                             for (; b = b[d];)
                                 if (1 === b.nodeType || e) {
@@ -997,7 +997,7 @@
                                         return j[2] = h[2];
                                     if (i[d] = j,
                                             j[2] = a(b, c, g))
-                                        return !0
+                                        return true
                                 }
                     }
                 }
@@ -1006,8 +1006,8 @@
                     return a.length > 1 ? function (b, c, d) {
                         for (var e = a.length; e--;)
                             if (!a[e](b, c, d))
-                                return !1;
-                        return !0
+                                return false;
+                        return true
                     } : a[0]
                 }
 
@@ -1060,9 +1060,9 @@
                 function s(a) {
                     for (var b, c, d, e = a.length, f = w.relative[a[0].type], g = f || w.relative[" "], h = f ? 1 : 0, i = n(function (a) {
                         return a === b
-                    }, g, !0), j = n(function (a) {
+                    }, g, true), j = n(function (a) {
                         return aa(b, a) > -1
-                    }, g, !0), k = [function (a, c, d) {
+                    }, g, true), k = [function (a, c, d) {
                         var e = !f && (d || c !== C) || ((b = c).nodeType ? i(a, c, d) : j(a, c, d));
                         return b = null,
                             e
@@ -1135,7 +1135,7 @@
                     S = c(),
                     T = c(),
                     U = function (a, b) {
-                        return a === b && (E = !0),
+                        return a === b && (E = true),
                             0
                     },
                     V = 1 << 31,
@@ -1212,7 +1212,7 @@
                         return d !== G && 9 === d.nodeType && d.documentElement ? (G = d,
                             H = d.documentElement,
                             c = d.defaultView,
-                        c && c !== c.top && (c.addEventListener ? c.addEventListener("unload", xa, !1) : c.attachEvent && c.attachEvent("onunload", xa)),
+                        c && c !== c.top && (c.addEventListener ? c.addEventListener("unload", xa, false) : c.attachEvent && c.attachEvent("onunload", xa)),
                             I = !y(d),
                             v.attributes = e(function (a) {
                                 return a.className = "i", !a.getAttribute("className")
@@ -1295,19 +1295,19 @@
                                 if (b)
                                     for (; b = b.parentNode;)
                                         if (b === a)
-                                            return !0;
-                                return !1
+                                            return true;
+                                return false
                             },
                             U = b ? function (a, b) {
                                 if (a === b)
-                                    return E = !0,
+                                    return E = true,
                                         0;
                                 var c = !a.compareDocumentPosition - !b.compareDocumentPosition;
                                 return c ? c : (c = (a.ownerDocument || a) === (b.ownerDocument || b) ? a.compareDocumentPosition(b) : 1,
                                     1 & c || !v.sortDetached && b.compareDocumentPosition(a) === c ? a === d || a.ownerDocument === O && M(O, a) ? -1 : b === d || b.ownerDocument === O && M(O, b) ? 1 : D ? aa(D, a) - aa(D, b) : 0 : 4 & c ? -1 : 1)
                             } : function (a, b) {
                                 if (a === b)
-                                    return E = !0,
+                                    return E = true,
                                         0;
                                 var c, e = 0,
                                     f = a.parentNode,
@@ -1398,14 +1398,14 @@
                         relative: {
                             ">": {
                                 dir: "parentNode",
-                                first: !0
+                                first: true
                             },
                             " ": {
                                 dir: "parentNode"
                             },
                             "+": {
                                 dir: "previousSibling",
-                                first: !0
+                                first: true
                             },
                             "~": {
                                 dir: "previousSibling"
@@ -1427,7 +1427,7 @@
                             },
                             PSEUDO: function (a) {
                                 var b, c = !a[6] && a[2];
-                                return oa.CHILD.test(a[0]) ? null : (a[3] ? a[2] = a[4] || a[5] || "" : c && ma.test(c) && (b = z(c, !0)) && (b = c.indexOf(")", c.length - b) - c.length) && (a[0] = a[0].slice(0, b),
+                                return oa.CHILD.test(a[0]) ? null : (a[3] ? a[2] = a[4] || a[5] || "" : c && ma.test(c) && (b = z(c, true)) && (b = c.indexOf(")", c.length - b) - c.length) && (a[0] = a[0].slice(0, b),
                                         a[2] = c.slice(0, b)),
                                     a.slice(0, 3))
                             }
@@ -1436,7 +1436,7 @@
                             TAG: function (a) {
                                 var b = a.replace(va, wa).toLowerCase();
                                 return "*" === a ? function () {
-                                    return !0
+                                    return true
                                 } : function (a) {
                                     return a.nodeName && a.nodeName.toLowerCase() === b
                                 }
@@ -1470,10 +1470,10 @@
                                             for (; p;) {
                                                 for (l = b; l = l[p];)
                                                     if (h ? l.nodeName.toLowerCase() === r : 1 === l.nodeType)
-                                                        return !1;
+                                                        return false;
                                                 o = p = "only" === a && !o && "nextSibling"
                                             }
-                                            return !0
+                                            return true
                                         }
                                         if (o = [g ? q.firstChild : q.lastChild],
                                             g && s) {
@@ -1546,7 +1546,7 @@
                                                 return c = c.toLowerCase(),
                                                 c === a || 0 === c.indexOf(a + "-");
                                         while ((b = b.parentNode) && 1 === b.nodeType);
-                                        return !1
+                                        return false
                                     }
                             }),
                             target: function (b) {
@@ -1560,10 +1560,10 @@
                                 return a === G.activeElement && (!G.hasFocus || G.hasFocus()) && !!(a.type || a.href || ~a.tabIndex)
                             },
                             enabled: function (a) {
-                                return a.disabled === !1
+                                return a.disabled === false
                             },
                             disabled: function (a) {
-                                return a.disabled === !0
+                                return a.disabled === true
                             },
                             checked: function (a) {
                                 var b = a.nodeName.toLowerCase();
@@ -1571,13 +1571,13 @@
                             },
                             selected: function (a) {
                                 return a.parentNode && a.parentNode.selectedIndex,
-                                a.selected === !0
+                                a.selected === true
                             },
                             empty: function (a) {
                                 for (a = a.firstChild; a; a = a.nextSibling)
                                     if (a.nodeType < 6)
-                                        return !1;
-                                return !0
+                                        return false;
+                                return true
                             },
                             parent: function (a) {
                                 return !w.pseudos.empty(a)
@@ -1629,16 +1629,16 @@
                     },
                     w.pseudos.nth = w.pseudos.eq;
                 for (u in {
-                    radio: !0,
-                    checkbox: !0,
-                    file: !0,
-                    password: !0,
-                    image: !0
+                    radio: true,
+                    checkbox: true,
+                    file: true,
+                    password: true,
+                    image: true
                 })
                     w.pseudos[u] = h(u);
                 for (u in {
-                    submit: !0,
-                    reset: !0
+                    submit: true,
+                    reset: true
                 })
                     w.pseudos[u] = i(u);
                 return l.prototype = w.filters = w.pseudos,
@@ -1652,7 +1652,7 @@
                                  j = w.preFilter; h;) {
                             d && !(e = ja.exec(h)) || (e && (h = h.slice(e[0].length) || h),
                                 i.push(f = [])),
-                                d = !1, (e = ka.exec(h)) && (d = e.shift(),
+                                d = false, (e = ka.exec(h)) && (d = e.shift(),
                                 f.push({
                                     value: d,
                                     type: e[0].replace(ia, " ")
@@ -1735,7 +1735,7 @@
                 }) || f(ba, function (a, b, c) {
                     var d;
                     if (!c)
-                        return a[b] === !0 ? b.toLowerCase() : (d = a.getAttributeNode(b)) && d.specified ? d.value : null
+                        return a[b] === true ? b.toLowerCase() : (d = a.getAttributeNode(b)) && d.specified ? d.value : null
                 }),
                     b
             }(a);
@@ -1765,7 +1765,7 @@
                             return this.pushStack(Q(a).filter(function () {
                                 for (b = 0; b < e; b++)
                                     if (Q.contains(d[b], this))
-                                        return !0
+                                        return true
                             }));
                         for (b = 0; b < e; b++)
                             Q.find(a, d[b], c);
@@ -1774,13 +1774,13 @@
                             c
                     },
                     filter: function (a) {
-                        return this.pushStack(d(this, a || [], !1))
+                        return this.pushStack(d(this, a || [], false))
                     },
                     not: function (a) {
-                        return this.pushStack(d(this, a || [], !0))
+                        return this.pushStack(d(this, a || [], true))
                     },
                     is: function (a) {
-                        return !!d(this, "string" == typeof a && W.test(a) ? Q(a) : a || [], !1).length
+                        return !!d(this, "string" == typeof a && W.test(a) ? Q(a) : a || [], false).length
                     }
                 });
             var Z, $ = a.document,
@@ -1794,7 +1794,7 @@
                             return !b || b.jquery ? (b || Z).find(a) : this.constructor(b).find(a);
                         if (c[1]) {
                             if (b = b instanceof Q ? b[0] : b,
-                                    Q.merge(this, Q.parseHTML(c[1], b && b.nodeType ? b.ownerDocument || b : $, !0)),
+                                    Q.merge(this, Q.parseHTML(c[1], b && b.nodeType ? b.ownerDocument || b : $, true)),
                                 X.test(c[1]) && Q.isPlainObject(b))
                                 for (c in b)
                                     Q.isFunction(this[c]) ? this[c](b[c]) : this.attr(c, b[c]);
@@ -1821,10 +1821,10 @@
                 Z = Q($);
             var ba = /^(?:parents|prev(?:Until|All))/,
                 ca = {
-                    children: !0,
-                    contents: !0,
-                    next: !0,
-                    prev: !0
+                    children: true,
+                    contents: true,
+                    next: true,
+                    prev: true
                 };
             Q.extend({
                 dir: function (a, b, c) {
@@ -1846,7 +1846,7 @@
                         return this.filter(function () {
                             for (b = 0; b < d; b++)
                                 if (Q.contains(this, c[b]))
-                                    return !0
+                                    return true
                         })
                     },
                     closest: function (a, b) {
@@ -1924,16 +1924,16 @@
                     j = !a.once && [],
                     k = function (f) {
                         for (c = a.memory && f,
-                                 d = !0,
+                                 d = true,
                                  g = h || 0,
                                  h = 0,
                                  e = i.length,
-                                 b = !0; i && g < e; g++)
-                            if (i[g].apply(f[0], f[1]) === !1 && a.stopOnFalse) {
-                                c = !1;
+                                 b = true; i && g < e; g++)
+                            if (i[g].apply(f[0], f[1]) === false && a.stopOnFalse) {
+                                c = false;
                                 break
                             }
-                        b = !1,
+                        b = false,
                         i && (j ? j.length && k(j.shift()) : c ? i = [] : l.disable())
                     },
                     l = {
@@ -2080,17 +2080,17 @@
                     this
             },
                 Q.extend({
-                    isReady: !1,
+                    isReady: false,
                     readyWait: 1,
                     holdReady: function (a) {
-                        a ? Q.readyWait++ : Q.ready(!0)
+                        a ? Q.readyWait++ : Q.ready(true)
                     },
                     ready: function (a) {
-                        if (a === !0 ? !--Q.readyWait : !Q.isReady) {
+                        if (a === true ? !--Q.readyWait : !Q.isReady) {
                             if (!$.body)
                                 return setTimeout(Q.ready);
-                            Q.isReady = !0,
-                            a !== !0 && --Q.readyWait > 0 || (fa.resolveWith($, [Q]),
+                            Q.isReady = true,
+                            a !== true && --Q.readyWait > 0 || (fa.resolveWith($, [Q]),
                             Q.fn.triggerHandler && (Q($).triggerHandler("ready"),
                                 Q($).off("ready")))
                         }
@@ -2102,12 +2102,12 @@
                             "complete" === $.readyState)
                             setTimeout(Q.ready);
                         else if ($.addEventListener)
-                            $.addEventListener("DOMContentLoaded", h, !1),
-                                a.addEventListener("load", h, !1);
+                            $.addEventListener("DOMContentLoaded", h, false),
+                                a.addEventListener("load", h, false);
                         else {
                             $.attachEvent("onreadystatechange", h),
                                 a.attachEvent("onload", h);
-                            var c = !1;
+                            var c = false;
                             try {
                                 c = null == a.frameElement && $.documentElement
                             } catch (d) {
@@ -2130,7 +2130,7 @@
             for (ga in Q(O))
                 break;
             O.ownLast = "0" !== ga,
-                O.inlineBlockNeedsLayout = !1,
+                O.inlineBlockNeedsLayout = false,
                 Q(function () {
                     var a, b, c, d;
                     c = $.getElementsByTagName("body")[0],
@@ -2146,11 +2146,11 @@
                 function () {
                     var a = $.createElement("div");
                     if (null == O.deleteExpando) {
-                        O.deleteExpando = !0;
+                        O.deleteExpando = true;
                         try {
                             delete a.test
                         } catch (b) {
-                            O.deleteExpando = !1
+                            O.deleteExpando = false
                         }
                     }
                     a = null
@@ -2158,15 +2158,15 @@
                 Q.acceptData = function (a) {
                     var b = Q.noData[(a.nodeName + " ").toLowerCase()],
                         c = +a.nodeType || 1;
-                    return (1 === c || 9 === c) && (!b || b !== !0 && a.getAttribute("classid") === b)
+                    return (1 === c || 9 === c) && (!b || b !== true && a.getAttribute("classid") === b)
                 };
             var ia = /^(?:\{[\w\W]*\}|\[[\w\W]*\])$/,
                 ja = /([A-Z])/g;
             Q.extend({
                 cache: {},
                 noData: {
-                    "applet ": !0,
-                    "embed ": !0,
+                    "applet ": true,
+                    "embed ": true,
                     "object ": "clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
                 },
                 hasData: function (a) {
@@ -2179,10 +2179,10 @@
                     return l(a, b)
                 },
                 _data: function (a, b, c) {
-                    return k(a, b, c, !0)
+                    return k(a, b, c, true)
                 },
                 _removeData: function (a, b) {
-                    return l(a, b, !0)
+                    return l(a, b, true)
                 }
             }),
                 Q.fn.extend({
@@ -2196,7 +2196,7 @@
                                     g[c] && (d = g[c].name,
                                     0 === d.indexOf("data-") && (d = Q.camelCase(d.slice(5)),
                                         i(f, d, e[d])));
-                                Q._data(f, "parsedAttrs", !0)
+                                Q._data(f, "parsedAttrs", true)
                             }
                             return e
                         }
@@ -2290,11 +2290,11 @@
                                 i = a.length,
                                 j = null == c;
                             if ("object" === Q.type(c)) {
-                                e = !0;
+                                e = true;
                                 for (h in c)
-                                    Q.access(a, b, h, c[h], !0, f, g)
-                            } else if (void 0 !== d && (e = !0,
-                                Q.isFunction(d) || (g = !0),
+                                    Q.access(a, b, h, c[h], true, f, g)
+                            } else if (void 0 !== d && (e = true,
+                                Q.isFunction(d) || (g = true),
                                 j && (g ? (b.call(a, d),
                                     b = null) : (j = b,
                                         b = function (a, b, c) {
@@ -2316,39 +2316,39 @@
                         O.leadingWhitespace = 3 === b.firstChild.nodeType,
                         O.tbody = !b.getElementsByTagName("tbody").length,
                         O.htmlSerialize = !!b.getElementsByTagName("link").length,
-                        O.html5Clone = "<:nav></:nav>" !== $.createElement("nav").cloneNode(!0).outerHTML,
+                        O.html5Clone = "<:nav></:nav>" !== $.createElement("nav").cloneNode(true).outerHTML,
                         a.type = "checkbox",
-                        a.checked = !0,
+                        a.checked = true,
                         c.appendChild(a),
                         O.appendChecked = a.checked,
                         b.innerHTML = "<textarea>x</textarea>",
-                        O.noCloneChecked = !!b.cloneNode(!0).lastChild.defaultValue,
+                        O.noCloneChecked = !!b.cloneNode(true).lastChild.defaultValue,
                         c.appendChild(b),
                         b.innerHTML = "<input type='radio' checked='checked' name='t'/>",
-                        O.checkClone = b.cloneNode(!0).cloneNode(!0).lastChild.checked,
-                        O.noCloneEvent = !0,
+                        O.checkClone = b.cloneNode(true).cloneNode(true).lastChild.checked,
+                        O.noCloneEvent = true,
                     b.attachEvent && (b.attachEvent("onclick", function () {
-                        O.noCloneEvent = !1
+                        O.noCloneEvent = false
                     }),
-                        b.cloneNode(!0).click()),
+                        b.cloneNode(true).click()),
                     null == O.deleteExpando) {
-                    O.deleteExpando = !0;
+                    O.deleteExpando = true;
                     try {
                         delete b.test
                     } catch (d) {
-                        O.deleteExpando = !1
+                        O.deleteExpando = false
                     }
                 }
             }(),
                 function () {
                     var b, c, d = $.createElement("div");
                     for (b in {
-                        submit: !0,
-                        change: !0,
-                        focusin: !0
+                        submit: true,
+                        change: true,
+                        focusin: true
                     })
                         c = "on" + b, (O[b + "Bubbles"] = c in a) || (d.setAttribute(c, "t"),
-                            O[b + "Bubbles"] = d.attributes[c].expando === !1);
+                            O[b + "Bubbles"] = d.attributes[c].expando === false);
                     d = null
                 }();
             var ma = /^(?:input|select|textarea)$/i,
@@ -2387,11 +2387,11 @@
                                     namespace: o.join(".")
                                 }, i), (m = g[n]) || (m = g[n] = [],
                                 m.delegateCount = 0,
-                            j.setup && j.setup.call(a, d, o, k) !== !1 || (a.addEventListener ? a.addEventListener(n, k, !1) : a.attachEvent && a.attachEvent("on" + n, k))),
+                            j.setup && j.setup.call(a, d, o, k) !== false || (a.addEventListener ? a.addEventListener(n, k, false) : a.attachEvent && a.attachEvent("on" + n, k))),
                             j.add && (j.add.call(a, l),
                             l.handler.guid || (l.handler.guid = c.guid)),
                                 e ? m.splice(m.delegateCount++, 0, l) : m.push(l),
-                                Q.event.global[n] = !0);
+                                Q.event.global[n] = true);
                         a = null
                     }
                 },
@@ -2412,11 +2412,11 @@
                                     g = m[f], !e && p !== g.origType || c && c.guid !== g.guid || h && !h.test(g.namespace) || d && d !== g.selector && ("**" !== d || !g.selector) || (m.splice(f, 1),
                                     g.selector && m.delegateCount--,
                                     l.remove && l.remove.call(a, g));
-                                i && !m.length && (l.teardown && l.teardown.call(a, o, q.handle) !== !1 || Q.removeEvent(a, n, q.handle),
+                                i && !m.length && (l.teardown && l.teardown.call(a, o, q.handle) !== false || Q.removeEvent(a, n, q.handle),
                                     delete k[n])
                             } else
                                 for (n in k)
-                                    Q.event.remove(a, n + b[j], c, d, !0);
+                                    Q.event.remove(a, n + b[j], c, d, true);
                         Q.isEmptyObject(k) && (delete q.handle,
                             Q._removeData(a, "events"))
                     }
@@ -2438,7 +2438,7 @@
                         b.target || (b.target = d),
                             c = null == c ? [b] : Q.makeArray(c, [b]),
                             j = Q.event.special[n] || {},
-                        e || !j.trigger || j.trigger.apply(d, c) !== !1)) {
+                        e || !j.trigger || j.trigger.apply(d, c) !== false)) {
                         if (!e && !j.noBubble && !Q.isWindow(d)) {
                             for (i = j.delegateType || n,
                                  pa.test(i + n) || (h = h.parentNode); h; h = h.parentNode)
@@ -2453,8 +2453,8 @@
                             f && f.apply(h, c),
                                 f = g && h[g],
                             f && f.apply && Q.acceptData(h) && (b.result = f.apply(h, c),
-                            b.result === !1 && b.preventDefault());
-                        if (b.type = n, !e && !b.isDefaultPrevented() && (!j._default || j._default.apply(m.pop(), c) === !1) && Q.acceptData(d) && g && d[n] && !Q.isWindow(d)) {
+                            b.result === false && b.preventDefault());
+                        if (b.type = n, !e && !b.isDefaultPrevented() && (!j._default || j._default.apply(m.pop(), c) === false) && Q.acceptData(d) && g && d[n] && !Q.isWindow(d)) {
                             k = d[g],
                             k && (d[g] = null),
                                 Q.event.triggered = n;
@@ -2475,7 +2475,7 @@
                         i = (Q._data(this, "events") || {})[a.type] || [],
                         j = Q.event.special[a.type] || {};
                     if (h[0] = a,
-                            a.delegateTarget = this, !j.preDispatch || j.preDispatch.call(this, a) !== !1) {
+                            a.delegateTarget = this, !j.preDispatch || j.preDispatch.call(this, a) !== false) {
                         for (g = Q.event.handlers.call(this, a, i),
                                  b = 0;
                              (e = g[b++]) && !a.isPropagationStopped();)
@@ -2485,7 +2485,7 @@
                                 a.namespace_re && !a.namespace_re.test(d.namespace) || (a.handleObj = d,
                                     a.data = d.data,
                                     c = ((Q.event.special[d.origType] || {}).handle || d.handler).apply(e.elem, h),
-                                void 0 !== c && (a.result = c) === !1 && (a.preventDefault(),
+                                void 0 !== c && (a.result = c) === false && (a.preventDefault(),
                                     a.stopPropagation()));
                         return j.postDispatch && j.postDispatch.call(this, a),
                             a.result
@@ -2497,7 +2497,7 @@
                         i = a.target;
                     if (h && i.nodeType && (!a.button || "click" !== a.type))
                         for (; i != this; i = i.parentNode || this)
-                            if (1 === i.nodeType && (i.disabled !== !0 || "click" !== a.type)) {
+                            if (1 === i.nodeType && (i.disabled !== true || "click" !== a.type)) {
                                 for (e = [],
                                          f = 0; f < h; f++)
                                     d = b[f],
@@ -2557,13 +2557,13 @@
                 },
                 special: {
                     load: {
-                        noBubble: !0
+                        noBubble: true
                     },
                     focus: {
                         trigger: function () {
                             if (this !== o() && this.focus)
                                 try {
-                                    return this.focus(), !1
+                                    return this.focus(), false
                                 } catch (a) {
                                 }
                         },
@@ -2572,14 +2572,14 @@
                     blur: {
                         trigger: function () {
                             if (this === o() && this.blur)
-                                return this.blur(), !1
+                                return this.blur(), false
                         },
                         delegateType: "focusout"
                     },
                     click: {
                         trigger: function () {
                             if (Q.nodeName(this, "input") && "checkbox" === this.type && this.click)
-                                return this.click(), !1
+                                return this.click(), false
                         },
                         _default: function (a) {
                             return Q.nodeName(a.target, "a")
@@ -2594,7 +2594,7 @@
                 simulate: function (a, b, c, d) {
                     var e = Q.extend(new Q.Event, c, {
                         type: a,
-                        isSimulated: !0,
+                        isSimulated: true,
                         originalEvent: {}
                     });
                     d ? Q.event.trigger(e, null, b) : Q.event.dispatch.call(b, e),
@@ -2602,7 +2602,7 @@
                 }
             },
                 Q.removeEvent = $.removeEventListener ? function (a, b, c) {
-                    a.removeEventListener && a.removeEventListener(b, c, !1)
+                    a.removeEventListener && a.removeEventListener(b, c, false)
                 } : function (a, b, c) {
                     var d = "on" + b;
                     a.detachEvent && (typeof a[d] === ha && (a[d] = null),
@@ -2611,10 +2611,10 @@
                 Q.Event = function (a, b) {
                     return this instanceof Q.Event ? (a && a.type ? (this.originalEvent = a,
                         this.type = a.type,
-                        this.isDefaultPrevented = a.defaultPrevented || void 0 === a.defaultPrevented && a.returnValue === !1 ? m : n) : this.type = a,
+                        this.isDefaultPrevented = a.defaultPrevented || void 0 === a.defaultPrevented && a.returnValue === false ? m : n) : this.type = a,
                     b && Q.extend(this, b),
                         this.timeStamp = a && a.timeStamp || Q.now(),
-                        void(this[Q.expando] = !0)) : new Q.Event(a, b)
+                        void(this[Q.expando] = true)) : new Q.Event(a, b)
                 },
                 Q.Event.prototype = {
                     isDefaultPrevented: n,
@@ -2623,13 +2623,13 @@
                     preventDefault: function () {
                         var a = this.originalEvent;
                         this.isDefaultPrevented = m,
-                        a && (a.preventDefault ? a.preventDefault() : a.returnValue = !1)
+                        a && (a.preventDefault ? a.preventDefault() : a.returnValue = false)
                     },
                     stopPropagation: function () {
                         var a = this.originalEvent;
                         this.isPropagationStopped = m,
                         a && (a.stopPropagation && a.stopPropagation(),
-                            a.cancelBubble = !0)
+                            a.cancelBubble = true)
                     },
                     stopImmediatePropagation: function () {
                         var a = this.originalEvent;
@@ -2664,14 +2664,14 @@
                             var b = a.target,
                                 c = Q.nodeName(b, "input") || Q.nodeName(b, "button") ? b.form : void 0;
                             c && !Q._data(c, "submitBubbles") && (Q.event.add(c, "submit._submit", function (a) {
-                                a._submit_bubble = !0
+                                a._submit_bubble = true
                             }),
-                                Q._data(c, "submitBubbles", !0))
+                                Q._data(c, "submitBubbles", true))
                         })
                 },
                 postDispatch: function (a) {
                     a._submit_bubble && (delete a._submit_bubble,
-                    this.parentNode && !a.isTrigger && Q.event.simulate("submit", this.parentNode, a, !0))
+                    this.parentNode && !a.isTrigger && Q.event.simulate("submit", this.parentNode, a, true))
                 },
                 teardown: function () {
                     return !Q.nodeName(this, "form") && void Q.event.remove(this, "._submit")
@@ -2680,17 +2680,17 @@
             O.changeBubbles || (Q.event.special.change = {
                 setup: function () {
                     return ma.test(this.nodeName) ? ("checkbox" !== this.type && "radio" !== this.type || (Q.event.add(this, "propertychange._change", function (a) {
-                        "checked" === a.originalEvent.propertyName && (this._just_changed = !0)
+                        "checked" === a.originalEvent.propertyName && (this._just_changed = true)
                     }),
                         Q.event.add(this, "click._change", function (a) {
-                            this._just_changed && !a.isTrigger && (this._just_changed = !1),
-                                Q.event.simulate("change", this, a, !0)
-                        })), !1) : void Q.event.add(this, "beforeactivate._change", function (a) {
+                            this._just_changed && !a.isTrigger && (this._just_changed = false),
+                                Q.event.simulate("change", this, a, true)
+                        })), false) : void Q.event.add(this, "beforeactivate._change", function (a) {
                         var b = a.target;
                         ma.test(b.nodeName) && !Q._data(b, "changeBubbles") && (Q.event.add(b, "change._change", function (a) {
-                            !this.parentNode || a.isSimulated || a.isTrigger || Q.event.simulate("change", this.parentNode, a, !0)
+                            !this.parentNode || a.isSimulated || a.isTrigger || Q.event.simulate("change", this.parentNode, a, true)
                         }),
-                            Q._data(b, "changeBubbles", !0))
+                            Q._data(b, "changeBubbles", true))
                     })
                 },
                 handle: function (a) {
@@ -2707,19 +2707,19 @@
                 blur: "focusout"
             }, function (a, b) {
                 var c = function (a) {
-                    Q.event.simulate(b, a.target, Q.event.fix(a), !0)
+                    Q.event.simulate(b, a.target, Q.event.fix(a), true)
                 };
                 Q.event.special[b] = {
                     setup: function () {
                         var d = this.ownerDocument || this,
                             e = Q._data(d, b);
-                        e || d.addEventListener(a, c, !0),
+                        e || d.addEventListener(a, c, true),
                             Q._data(d, b, (e || 0) + 1)
                     },
                     teardown: function () {
                         var d = this.ownerDocument || this,
                             e = Q._data(d, b) - 1;
-                        e ? Q._data(d, b, e) : (d.removeEventListener(a, c, !0),
+                        e ? Q._data(d, b, e) : (d.removeEventListener(a, c, true),
                             Q._removeData(d, b))
                     }
                 }
@@ -2739,7 +2739,7 @@
                                     c = void 0) : (d = c,
                                     c = b,
                                     b = void 0)),
-                            d === !1)
+                            d === false)
                             d = n;
                         else if (!d)
                             return this;
@@ -2767,9 +2767,9 @@
                                 this.off(e, b, a[e]);
                             return this
                         }
-                        return b !== !1 && "function" != typeof b || (c = b,
+                        return b !== false && "function" != typeof b || (c = b,
                             b = void 0),
-                        c === !1 && (c = n),
+                        c === false && (c = n),
                             this.each(function () {
                                 Q.event.remove(this, a, c, b)
                             })
@@ -2782,7 +2782,7 @@
                     triggerHandler: function (a, b) {
                         var c = this[0];
                         if (c)
-                            return Q.event.trigger(a, b, c, !0)
+                            return Q.event.trigger(a, b, c, true)
                     }
                 });
             var ra = "abbr|article|aside|audio|bdi|canvas|data|datalist|details|figcaption|figure|footer|header|hgroup|mark|meter|nav|output|progress|section|summary|time|video",
@@ -2817,7 +2817,7 @@
                 Q.extend({
                     clone: function (a, b, c) {
                         var d, e, f, g, h, i = Q.contains(a.ownerDocument, a);
-                        if (O.html5Clone || Q.isXMLDoc(a) || !ta.test("<" + a.nodeName + ">") ? f = a.cloneNode(!0) : (Ga.innerHTML = a.outerHTML,
+                        if (O.html5Clone || Q.isXMLDoc(a) || !ta.test("<" + a.nodeName + ">") ? f = a.cloneNode(true) : (Ga.innerHTML = a.outerHTML,
                                 Ga.removeChild(f = Ga.firstChild)), !(O.noCloneEvent && O.noCloneChecked || 1 !== a.nodeType && 11 !== a.nodeType || Q.isXMLDoc(a)))
                             for (d = q(f),
                                      h = q(a),
@@ -2925,7 +2925,7 @@
                     },
                     empty: function () {
                         for (var a, b = 0; null != (a = this[b]); b++) {
-                            for (1 === a.nodeType && Q.cleanData(q(a, !1)); a.firstChild;)
+                            for (1 === a.nodeType && Q.cleanData(q(a, false)); a.firstChild;)
                                 a.removeChild(a.firstChild);
                             a.options && Q.nodeName(a, "select") && (a.options.length = 0)
                         }
@@ -2950,7 +2950,7 @@
                                 try {
                                     for (; c < d; c++)
                                         b = this[c] || {},
-                                        1 === b.nodeType && (Q.cleanData(q(b, !1)),
+                                        1 === b.nodeType && (Q.cleanData(q(b, false)),
                                             b.innerHTML = a);
                                     b = 0
                                 } catch (e) {
@@ -2969,7 +2969,7 @@
                             a && (a.length || a.nodeType) ? this : this.remove()
                     },
                     detach: function (a) {
-                        return this.remove(a, !0)
+                        return this.remove(a, true)
                     },
                     domManip: function (a, b) {
                         a = I.apply([], a);
@@ -2985,14 +2985,14 @@
                                 n && (a[0] = m.call(this, c, d.html())),
                                     d.domManip(a, b)
                             });
-                        if (j && (h = Q.buildFragment(a, this[0].ownerDocument, !1, this),
+                        if (j && (h = Q.buildFragment(a, this[0].ownerDocument, false, this),
                                 c = h.firstChild,
                             1 === h.childNodes.length && (h = c),
                                 c)) {
                             for (f = Q.map(q(h, "script"), t),
                                      e = f.length; i < j; i++)
                                 d = h,
-                                i !== l && (d = Q.clone(d, !0, !0),
+                                i !== l && (d = Q.clone(d, true, true),
                                 e && Q.merge(f, q(d, "script"))),
                                     b.call(this[i], d, i);
                             if (e)
@@ -3015,7 +3015,7 @@
                 }, function (a, b) {
                     Q.fn[a] = function (a) {
                         for (var c, d = 0, e = [], f = Q(a), g = f.length - 1; d <= g; d++)
-                            c = d === g ? this : this.clone(!0),
+                            c = d === g ? this : this.clone(true),
                                 Q(f[d])[b](c),
                                 J.apply(e, c.get());
                         return this.pushStack(e)
@@ -3047,7 +3047,7 @@
                         O.checkOn = !!a.value,
                         O.optSelected = e.selected,
                         O.enctype = !!$.createElement("form").enctype,
-                        c.disabled = !0,
+                        c.disabled = true,
                         O.optDisabled = !e.disabled,
                         a = $.createElement("input"),
                         a.setAttribute("value", ""),
@@ -3103,11 +3103,11 @@
                                     if (d = e[g],
                                         Q.inArray(Q.valHooks.option.get(d), f) >= 0)
                                         try {
-                                            d.selected = c = !0
+                                            d.selected = c = true
                                         } catch (h) {
                                             d.scrollHeight
                                         } else
-                                        d.selected = !1;
+                                        d.selected = false;
                                 return c || (a.selectedIndex = -1),
                                     e
                             }
@@ -3155,7 +3155,7 @@
                         if (f && 1 === a.nodeType)
                             for (; c = f[e++];)
                                 d = Q.propFix[c] || c,
-                                    Q.expr.match.bool.test(c) ? Na && Ma || !La.test(c) ? a[d] = !1 : a[Q.camelCase("default-" + c)] = a[d] = !1 : Q.attr(a, c, ""),
+                                    Q.expr.match.bool.test(c) ? Na && Ma || !La.test(c) ? a[d] = false : a[Q.camelCase("default-" + c)] = a[d] = false : Q.attr(a, c, ""),
                                     a.removeAttribute(Ma ? c : d)
                     },
                     attrHooks: {
@@ -3173,7 +3173,7 @@
                 }),
                 Ja = {
                     set: function (a, b, c) {
-                        return b === !1 ? Q.removeAttr(a, c) : Na && Ma || !La.test(c) ? a.setAttribute(!Ma && Q.propFix[c] || c, c) : a[Q.camelCase("default-" + c)] = a[c] = !0,
+                        return b === false ? Q.removeAttr(a, c) : Na && Ma || !La.test(c) ? a.setAttribute(!Ma && Q.propFix[c] || c, c) : a[Q.camelCase("default-" + c)] = a[c] = true,
                             c
                     }
                 },
@@ -3349,14 +3349,14 @@
                                 e.hasClass(b) ? e.removeClass(b) : e.addClass(b);
                         else
                             c !== ha && "boolean" !== c || (this.className && Q._data(this, "__className__", this.className),
-                                this.className = this.className || a === !1 ? "" : Q._data(this, "__className__") || "")
+                                this.className = this.className || a === false ? "" : Q._data(this, "__className__") || "")
                     })
                 },
                 hasClass: function (a) {
                     for (var b = " " + a + " ", c = 0, d = this.length; c < d; c++)
                         if (1 === this[c].nodeType && (" " + this[c].className + " ").replace(Qa, " ").indexOf(b) >= 0)
-                            return !0;
-                    return !1
+                            return true;
+                    return false
                 }
             }),
                 Q.each("blur focus focusin focusout load resize scroll unload click dblclick mousedown mouseup mousemove mouseover mouseout mouseenter mouseleave change select submit keydown keypress keyup error contextmenu".split(" "), function (a, b) {
@@ -3437,9 +3437,9 @@
                         url: Va,
                         type: "GET",
                         isLocal: Za.test(Ua[1]),
-                        global: !0,
-                        processData: !0,
-                        async: !0,
+                        global: true,
+                        processData: true,
+                        async: true,
                         contentType: "application/x-www-form-urlencoded; charset=UTF-8",
                         accepts: {
                             "*": db,
@@ -3460,13 +3460,13 @@
                         },
                         converters: {
                             "* text": String,
-                            "text html": !0,
+                            "text html": true,
                             "text json": Q.parseJSON,
                             "text xml": Q.parseXML
                         },
                         flatOptions: {
-                            url: !0,
-                            context: !0
+                            url: true,
+                            context: true
                         }
                     },
                     ajaxSetup: function (a, b) {
@@ -3579,13 +3579,13 @@
                             f = l.url,
                         l.hasContent || (l.data && (f = l.url += (Sa.test(f) ? "&" : "?") + l.data,
                             delete l.data),
-                        l.cache === !1 && (l.url = Xa.test(f) ? f.replace(Xa, "$1_=" + Ra++) : f + (Sa.test(f) ? "&" : "?") + "_=" + Ra++)),
+                        l.cache === false && (l.url = Xa.test(f) ? f.replace(Xa, "$1_=" + Ra++) : f + (Sa.test(f) ? "&" : "?") + "_=" + Ra++)),
                         l.ifModified && (Q.lastModified[f] && v.setRequestHeader("If-Modified-Since", Q.lastModified[f]),
-                        Q.etag[f] && v.setRequestHeader("If-None-Match", Q.etag[f])), (l.data && l.hasContent && l.contentType !== !1 || b.contentType) && v.setRequestHeader("Content-Type", l.contentType),
+                        Q.etag[f] && v.setRequestHeader("If-None-Match", Q.etag[f])), (l.data && l.hasContent && l.contentType !== false || b.contentType) && v.setRequestHeader("Content-Type", l.contentType),
                             v.setRequestHeader("Accept", l.dataTypes[0] && l.accepts[l.dataTypes[0]] ? l.accepts[l.dataTypes[0]] + ("*" !== l.dataTypes[0] ? ", " + db + "; q=0.01" : "") : l.accepts["*"]);
                         for (e in l.headers)
                             v.setRequestHeader(e, l.headers[e]);
-                        if (l.beforeSend && (l.beforeSend.call(m, v, l) === !1 || 2 === t))
+                        if (l.beforeSend && (l.beforeSend.call(m, v, l) === false || 2 === t))
                             return v.abort();
                         u = "abort";
                         for (e in {
@@ -3638,9 +3638,9 @@
                         url: a,
                         type: "GET",
                         dataType: "script",
-                        async: !1,
-                        global: !1,
-                        "throws": !0
+                        async: false,
+                        global: false,
+                        "throws": true
                     })
                 },
                 Q.fn.extend({
@@ -3650,7 +3650,7 @@
                                 Q(this).wrapAll(a.call(this, b))
                             });
                         if (this[0]) {
-                            var b = Q(a, this[0].ownerDocument).eq(0).clone(!0);
+                            var b = Q(a, this[0].ownerDocument).eq(0).clone(true);
                             this[0].parentNode && b.insertBefore(this[0]),
                                 b.map(function () {
                                     for (var a = this; a.firstChild && 1 === a.firstChild.nodeType;)
@@ -3735,7 +3735,7 @@
                 mb = Q.ajaxSettings.xhr();
             a.attachEvent && a.attachEvent("onunload", function () {
                 for (var a in lb)
-                    lb[a](void 0, !0)
+                    lb[a](void 0, true)
             }),
                 O.cors = !!mb && "withCredentials" in mb,
                 mb = O.ajax = !!mb,
@@ -3779,7 +3779,7 @@
                                 a.async ? 4 === f.readyState ? setTimeout(b) : f.onreadystatechange = lb[g] = b : b()
                         },
                         abort: function () {
-                            b && b(void 0, !0)
+                            b && b(void 0, true)
                         }
                     }
                 }
@@ -3799,9 +3799,9 @@
                     }
                 }),
                 Q.ajaxPrefilter("script", function (a) {
-                    void 0 === a.cache && (a.cache = !1),
+                    void 0 === a.cache && (a.cache = false),
                     a.crossDomain && (a.type = "GET",
-                        a.global = !1)
+                        a.global = false)
                 }),
                 Q.ajaxTransport("script", function (a) {
                     if (a.crossDomain) {
@@ -3809,7 +3809,7 @@
                         return {
                             send: function (d, e) {
                                 b = $.createElement("script"),
-                                    b.async = !0,
+                                    b.async = true,
                                 a.scriptCharset && (b.charset = a.scriptCharset),
                                     b.src = a.url,
                                     b.onload = b.onreadystatechange = function (a, c) {
@@ -3821,7 +3821,7 @@
                                     c.insertBefore(b, c.firstChild)
                             },
                             abort: function () {
-                                b && b.onload(void 0, !0)
+                                b && b.onload(void 0, true)
                             }
                         }
                     }
@@ -3832,16 +3832,16 @@
                 jsonp: "callback",
                 jsonpCallback: function () {
                     var a = nb.pop() || Q.expando + "_" + Ra++;
-                    return this[a] = !0,
+                    return this[a] = true,
                         a
                 }
             }),
                 Q.ajaxPrefilter("json jsonp", function (b, c, d) {
                     var e, f, g,
-                        h = b.jsonp !== !1 && (ob.test(b.url) ? "url" : "string" == typeof b.data && !(b.contentType || "").indexOf("application/x-www-form-urlencoded") && ob.test(b.data) && "data");
+                        h = b.jsonp !== false && (ob.test(b.url) ? "url" : "string" == typeof b.data && !(b.contentType || "").indexOf("application/x-www-form-urlencoded") && ob.test(b.data) && "data");
                     if (h || "jsonp" === b.dataTypes[0])
                         return e = b.jsonpCallback = Q.isFunction(b.jsonpCallback) ? b.jsonpCallback() : b.jsonpCallback,
-                            h ? b[h] = b[h].replace(ob, "$1" + e) : b.jsonp !== !1 && (b.url += (Sa.test(b.url) ? "&" : "?") + b.jsonp + "=" + e),
+                            h ? b[h] = b[h].replace(ob, "$1" + e) : b.jsonp !== false && (b.url += (Sa.test(b.url) ? "&" : "?") + b.jsonp + "=" + e),
                             b.converters["script json"] = function () {
                                 return g || Q.error(e + " was not called"),
                                     g[0]
@@ -3864,7 +3864,7 @@
                     if (!a || "string" != typeof a)
                         return null;
                     "boolean" == typeof b && (c = b,
-                        b = !1),
+                        b = false),
                         b = b || $;
                     var d = X.exec(a),
                         e = !c && [];
@@ -3997,13 +3997,13 @@
                         if ("string" == typeof b && void 0 !== k.levels[b.toUpperCase()] && (b = k.levels[b.toUpperCase()]), !("number" == typeof b && b >= 0 && b <= k.levels.SILENT))
                             throw "log.setLevel() called with invalid level: " + b;
                         if (j = b,
-                            c !== !1 && f(b),
+                            c !== false && f(b),
                                 d.call(k, b, a),
                             typeof console === h && b < k.levels.SILENT)
                             return "No console available for logging"
                     },
                     k.setDefaultLevel = function (a) {
-                        g() || k.setLevel(a, !1)
+                        g() || k.setLevel(a, false)
                     },
                     k.enableAll = function (a) {
                         k.setLevel(k.levels.TRACE, a)
@@ -4013,7 +4013,7 @@
                     };
                 var m = g();
                 null == m && (m = null == b ? "WARN" : b),
-                    k.setLevel(m, !1)
+                    k.setLevel(m, false)
             }
 
             var g = function () {
@@ -4330,7 +4330,7 @@
                         data: {
                             pv: k.pv,
                             tid: customer.tid,
-                            flash: !0,
+                            flash: true,
                             uri: f
                         }
                     })
@@ -4474,7 +4474,7 @@
                 return d.get = d.set = d,
                     d.getJSON = function () {
                         return d.apply({
-                            json: !0
+                            json: true
                         }, [].slice.call(arguments))
                     },
                     d.defaults = {},
@@ -4560,16 +4560,16 @@
                     NONE: "none"
                 },
                 OnChangeInputTypes: {
-                    text: !0,
-                    tel: !0,
-                    color: !0,
-                    number: !0,
-                    date: !0,
-                    email: !0,
-                    search: !0,
-                    url: !0,
-                    month: !0,
-                    range: !0
+                    text: true,
+                    tel: true,
+                    color: true,
+                    number: true,
+                    date: true,
+                    email: true,
+                    search: true,
+                    url: true,
+                    month: true,
+                    range: true
                 },
                 Errors: {
                     DOM_FAILURE: "DOM_FAILURE",
@@ -4614,17 +4614,17 @@
                 getElementBySelector: function (selector) {
                     if (void 0 === selector)
                         return null;
-                    for (var element, subSelectors = selector.split(">"), found = !1, i = 0; i < subSelectors.length; i++) {
-                        found = !1;
+                    for (var element, subSelectors = selector.split(">"), found = false, i = 0; i < subSelectors.length; i++) {
+                        found = false;
                         var subSelector = jQueryInternal.trim(subSelectors[i]);
                         if (0 === subSelector.indexOf("#")) {
                             if (element = document.getElementById(subSelector.substring(1)),
                                 null === element) {
-                                found = !1,
+                                found = false,
                                 tagUtils.tagConfig.retryCount < 1 && logLevel.warn("Unable to find element with ID [" + subSelector + "]");
                                 break
                             }
-                            found = !0
+                            found = true
                         } else {
                             if (void 0 === element && (element = document.body),
                                 null === element) {
@@ -4642,7 +4642,7 @@
                                 var elementName = childNodes[j].localName || childNodes[j].tagName || childNodes[j].nodeName;
                                 if (1 === childNodes[j].nodeType && elementName.toLowerCase() === subSelectorBeforeColon) {
                                     if (0 === eqN) {
-                                        found = !0,
+                                        found = true,
                                             element = childNodes[j];
                                         break
                                     }
@@ -4665,24 +4665,24 @@
                         i = {},
                         j = tagConstants.PointsProcessor.HANDLER_NAMES,
                         k = tagConstants.PointsProcessor.POINT_TYPES,
-                        l = !0;
+                        l = true;
                     d.name === j.CAPTURE_POINT ? (i.capturePointId = a.id,
                         i.pointType = k.CAPTURE_POINT) : d.name === j.TRACKING_POINT ? (i.trackingPointId = a.id,
                         i.pointType = k.TRACKING_POINT) : d.name === j.OPTIMIZATION_POINT && a.data.actions.length > 0 ? (i.responseIdentifier = a.data.actions[0].asset.responses[0].code,
-                        i.pointType = k.OPTIMIZATION_POINT) : l = !1,
+                        i.pointType = k.OPTIMIZATION_POINT) : l = false,
                     l && jsonpTransport(b).sendErrorEvent(h, tagConstants.Errors.DOM_FAILURE, e.uri, e.properties, i)
                 },
                 processPoint: function (a, d, e, f) {
                     tagUtils.tagConfig = a;
                     var h = tagUtils.getElementBySelector(d.path),
-                        i = !1;
+                        i = false;
                     return null == h && f && this.sendDomErrorEvent(d, f, e),
                         null !== h && "password" === h.type ? (logLevel.warn("This capture point has been ignored. ONE cannot capture data from a password field."),
-                            i = !0) : d.captureType === tagConstants.CaptureType.COOKIE ? tagUtils.getOrSetCookie(d.path) && (e.process(d, h),
+                            i = true) : d.captureType === tagConstants.CaptureType.COOKIE ? tagUtils.getOrSetCookie(d.path) && (e.process(d, h),
                                 logLevel.info("Injected [" + d.path + "]"),
-                                i = !0) : null !== h && (e.process(d, h),
+                                i = true) : null !== h && (e.process(d, h),
                                 logLevel.info("Injected [" + d.path + "]"),
-                                i = !0),
+                                i = true),
                         i
                 },
                 reprocessPoints: function (a) {
@@ -4756,17 +4756,17 @@
                                                 tagUtils.tagConfig.previewVersion && (p.data.style = p.style))
                                             }
                                             if (tagUtils.setResponses(d, p),
-                                                tagUtils.tagConfig.previewVersion && m === tagConstants.Directive.REPLACE && (p.data.originalElement = r[w].cloneNode(!0),
-                                                    p.data.replaceElement = p.cloneNode(!0)),
+                                                tagUtils.tagConfig.previewVersion && m === tagConstants.Directive.REPLACE && (p.data.originalElement = r[w].cloneNode(true),
+                                                    p.data.replaceElement = p.cloneNode(true)),
                                                 m === tagConstants.Directive.BEFORE)
                                                 q.insertBefore(p, r[w]);
                                             else if (m === tagConstants.Directive.AFTER)
                                                 q.insertBefore(p, r[w].nextSibling);
                                             else {
                                                 var C = tagUtils.findAncestorWithNodeName(a, "A"),
-                                                    D = !1;
+                                                    D = false;
                                                 C && "A" === p.nodeName && (logLevel.warn("Injection Prevented - Invalid Markup. Cannot inject an anchor tag into another anchor tag."),
-                                                    D = !0),
+                                                    D = true),
                                                 D || q.replaceChild(p, r[w])
                                             }
                                             n = p;
@@ -4782,14 +4782,14 @@
                                         rid: d.responseId,
                                         path: d.path
                                     }),
-                                    tagUtils.tagConfig.previewVersion && (a.data.originalElement = a.cloneNode(!0),
-                                        a.data.replaceElement = p.cloneNode(!0)),
+                                    tagUtils.tagConfig.previewVersion && (a.data.originalElement = a.cloneNode(true),
+                                        a.data.replaceElement = p.cloneNode(true)),
                                         a.innerHTML = "",
                                         a.appendChild(p),
                                         n = a
                                 }
                                 tagUtils.addSpecialElements(h),
-                                    tagUtils.addEventHandler(n, "click", tagUtils.handleEvent, !1),
+                                    tagUtils.addEventHandler(n, "click", tagUtils.handleEvent, false),
                                     tagUtils.attachHrefIntercepts(n),
                                     logLevel.info("Content : " + d.data)
                             } else if (tagUtils.isInvalidTextInjection(d.directives, l, e)) {
@@ -4816,13 +4816,13 @@
                             i = tagUtils.getResponseId(e, h),
                             e = e.parentNode;
                     return e.getAttribute(tagConstants.InjectedAttributes.RESPONSE_ID) && tagUtils.processEvent(b) && tagUtils.logOptimizationPoint(e.getAttribute(tagConstants.InjectedAttributes.RESPONSE_ID), f),
-                        tagUtils.handleHrefOnclick(d, b, !1)
+                        tagUtils.handleHrefOnclick(d, b, false)
                 },
                 handleEvent: function (a) {
                     var b = tagUtils.getEvent(a),
                         d = tagUtils.getTarget(b);
                     if (!tagUtils.processEvent(b))
-                        return !0;
+                        return true;
                     for (var e = d.getAttribute(tagConstants.InjectedAttributes.ASSET_RESPONSE), f = tagUtils.getResponseId(d, e), h = d.parentNode; null === f;) {
                         if ("BODY" === h.tagName)
                             return;
@@ -4830,7 +4830,7 @@
                             f = tagUtils.getResponseId(h, e),
                             h = h.parentNode
                     }
-                    return tagUtils.logOptimizationPoint(f), !0
+                    return tagUtils.logOptimizationPoint(f), true
                 },
                 getResponseId: function (a, d) {
                     if (!d)
@@ -4874,7 +4874,7 @@
                 },
                 isEmptyTextNode: function (b) {
                     if ("#text" !== b.nodeName)
-                        return !1;
+                        return false;
                     var c = b.textContent || b.innerText || "";
                     return "" === jQueryInternal.trim(c)
                 },
@@ -4990,7 +4990,7 @@
                         "BODY" !== b.nodeName && ("A" === a.nodeName && ("function" == typeof a.onclick && (a._onclick = a.onclick),
                                 a.onclick = function (a) {
                                     var b = tagUtils.getEvent(a);
-                                    tagUtils.handleHrefOnclick(this, b, !0)
+                                    tagUtils.handleHrefOnclick(this, b, true)
                                 }
                         ),
                             tagUtils.delayParentAnchors(b))
@@ -5002,7 +5002,7 @@
                         var c = "function" != typeof a._onclick || a._onclick(b);
                         c && (document.location.href = d)
                     }, 500),
-                    c && tagUtils.preventDefault(b), !1) : ("function" == typeof a._onclick && a._onclick(b), !0)
+                    c && tagUtils.preventDefault(b), false) : ("function" == typeof a._onclick && a._onclick(b), true)
                 },
                 isExternalLink: function (a) {
                     var b = "javascript";
@@ -5024,12 +5024,12 @@
                     var b = tagUtils.getTarget(a),
                         d = b.getAttribute(tagConstants.InjectedAttributes.EVENT_SENT);
                     if (d)
-                        return !1;
+                        return false;
                     var e = (new Date).getTime();
                     return tagUtils.setAttribute(b, tagConstants.InjectedAttributes.EVENT_SENT, e),
                         setTimeout(function () {
                             tagUtils.setAttribute(b, tagConstants.InjectedAttributes.EVENT_SENT, "")
-                        }, 100), !0
+                        }, 100), true
                 },
                 addParam: function (a, b, c, d) {
                     return b && c && (a += (d ? "?" : "&") + b + "=" + c),
@@ -5077,7 +5077,7 @@
                         logLevel.info("Logging event with response ID [" + a + "] and asset link (onelabel) [" + c + "].")
                 },
                 logCapturePointEvent: function (a, c, d, e) {
-                    a && (c || c === !1 || 0 === c) && (e.properties[a] = c,
+                    a && (c || c === false || 0 === c) && (e.properties[a] = c,
                         d > 0 ? setTimeout(function () {
                             tagUtils.tagConfig.customerApi.sendProperties(e.uri, e.properties)
                         }, d) : tagUtils.tagConfig.customerApi.sendProperties(e.uri, e.properties),
@@ -5092,14 +5092,14 @@
                         j = jQueryInternal.data(e, "one-apirequest");
                     return !f || !h || (h > 0 ? setTimeout(function () {
                             tagUtils.logCapturePointEvent(f, tagUtils.extractValueFromTarget(e, i), 0, j)
-                        }, h) : tagUtils.logCapturePointEvent(f, tagUtils.extractValueFromTarget(e, i), 0, j), !0)
+                        }, h) : tagUtils.logCapturePointEvent(f, tagUtils.extractValueFromTarget(e, i), 0, j), true)
                 },
                 attachCapturePointHandler: function (a, b, d, e, f) {
                     tagUtils.setAttribute(a, tagConstants.InjectedAttributes.CAPTURE_POINT_ID, b.id),
                         tagUtils.setAttribute(a, tagConstants.InjectedAttributes.CAPTURE_DELAY, d || 0),
                         tagUtils.setAttribute(a, tagConstants.InjectedAttributes.CAPTURE_TYPE, e || 0),
                         tagUtils.setAttribute(a, tagConstants.InjectedAttributes.CAPTURE_ATTRIBUTE, b.attribute),
-                        tagUtils.addEventHandler(a, f, tagUtils.handleCapturePointEvent, !1),
+                        tagUtils.addEventHandler(a, f, tagUtils.handleCapturePointEvent, false),
                         tagUtils.attachApiRequest(a, b.apiRequest)
                 },
                 logTrackingPointEvent: function (a, c) {
@@ -5121,7 +5121,7 @@
                     jQueryInternal.data(b, "one-apirequest", c)
                 },
                 preventDefault: function (a) {
-                    a.preventDefault ? a.preventDefault() : a.returnValue = !1
+                    a.preventDefault ? a.preventDefault() : a.returnValue = false
                 }
             };
             return tagUtils
@@ -5237,7 +5237,7 @@
                     },
                     captureElementValueFromGroup: function (a, b, c) {
                         for (var e = a.elementName ? a.elementName : b.name, f = document.getElementsByName(e), g = 0; g < f.length; g++)
-                            if (f[g].checked !== !1) {
+                            if (f[g].checked !== false) {
                                 tagUtils.logCapturePointEvent(a.id, f[g].value, c, a.apiRequest);
                                 break
                             }
@@ -5367,13 +5367,13 @@
                 go: function (root, settings, url, callback) {
                     if (root.onetagExists)
                         return void logLevel.error("ONE-Tag already exists on the page. Check it has not been loaded more than once.");
-                    root.onetagExists = !0;
+                    root.onetagExists = true;
                     var m = urlUtils.parseUrlString(url);
                     settings = jQueryInternal.extend(settings, {
                         version: "2.0",
                         touchpoint: m.protocol + "//" + m.host,
                         timeout: 1050,
-                        doRetry: !0,
+                        doRetry: true,
                         interaction: m.pathname,
                         properties: m.searchObject
                     });
